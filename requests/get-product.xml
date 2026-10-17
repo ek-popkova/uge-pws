@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope">
+  <env:Body>
+    <shop:GetProduct xmlns:shop="http://shop.example.com/">
+      <shop:id>42</shop:id>
+    </shop:GetProduct>
+  </env:Body>
+</env:Envelope>
