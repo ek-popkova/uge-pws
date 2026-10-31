@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 
 from fastapi import APIRouter, Request, Response
 
-from .data import PRODUCTS
+from . import db
 
 router = APIRouter()
 
@@ -34,13 +34,13 @@ FAULT = """    <env:Fault>
     </env:Fault>"""
 
 
-@router.post("/ProductService")
+@router.post("/ProductService", include_in_schema=False)
 async def product_service(request: Request) -> Response:
     """One endpoint, one verb, and the operation hidden inside the body."""
     envelope = ET.fromstring(await request.body())
     asked_id = int(envelope.find(".//shop:id", NS).text)
 
-    product = PRODUCTS.get(asked_id)
+    product = db.get_product(asked_id)
     body = FOUND.format(**product) if product else FAULT.format(id=asked_id)
 
     return Response(

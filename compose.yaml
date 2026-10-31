@@ -1,0 +1,22 @@
+services:
+  inventory:
+    build: .
+    command: uvicorn services.inventory.main:app --host 0.0.0.0 --port 8000
+    ports: ["8000:8000"]
+    environment:
+      INVENTORY_DB: /data/inventory.db
+    volumes: ["inventory-data:/data"]
+
+  orders:
+    build: .
+    command: uvicorn services.orders.main:app --host 0.0.0.0 --port 8000
+    ports: ["8001:8000"]
+    environment:
+      ORDERS_DB: /data/orders.db
+      INVENTORY_URL: http://inventory:8000
+    volumes: ["orders-data:/data"]
+    depends_on: [inventory]
+
+volumes:
+  inventory-data:
+  orders-data:
