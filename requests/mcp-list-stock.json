@@ -1,0 +1,4 @@
+{"jsonrpc": "2.0", "id": 7, "method": "tools/call",
+ "params": {"name": "list_products", "arguments": {"in_stock": true},
+            "_meta": {"io.modelcontextprotocol/protocolVersion": "2026-07-28",
+                      "io.modelcontextprotocol/clientCapabilities": {}}}}

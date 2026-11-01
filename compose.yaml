@@ -17,6 +17,16 @@ services:
     volumes: ["orders-data:/data"]
     depends_on: [inventory]
 
+  mcp:
+    build: .
+    command: python -m services.mcp_server.main
+    ports: ["8002:8002"]
+    environment:
+      MCP_HOST: 0.0.0.0
+      INVENTORY_URL: http://inventory:8000
+      ORDERS_URL: http://orders:8000
+    depends_on: [inventory, orders]
+
 volumes:
   inventory-data:
   orders-data:
